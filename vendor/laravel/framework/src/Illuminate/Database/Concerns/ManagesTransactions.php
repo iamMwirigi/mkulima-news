@@ -10,18 +10,15 @@ use Throwable;
 trait ManagesTransactions
 {
     /**
-     * @template TReturn of mixed
-     *
      * Execute a Closure within a transaction.
      *
-     * @param  (\Closure(static): TReturn)  $callback
+     * @param  \Closure  $callback
      * @param  int  $attempts
-     * @param  Closure|null  $onFailure
-     * @return TReturn
+     * @return mixed
      *
      * @throws \Throwable
      */
-    public function transaction(Closure $callback, $attempts = 1, ?Closure $onFailure = null)
+    public function transaction(Closure $callback, $attempts = 1)
     {
         for ($currentAttempt = 1; $currentAttempt <= $attempts; $currentAttempt++) {
             $this->beginTransaction();
@@ -38,13 +35,11 @@ trait ManagesTransactions
             // exception back out, and let the developer handle an uncaught exception.
             catch (Throwable $e) {
                 $this->handleTransactionException(
-                    $e, $currentAttempt, $attempts, $onFailure
+                    $e, $currentAttempt, $attempts
                 );
 
                 continue;
             }
-
-            $levelBeingCommitted = $this->transactions;
 
             try {
                 if ($this->transactions == 1) {
@@ -53,6 +48,10 @@ trait ManagesTransactions
                 }
 
                 $this->transactions = max(0, $this->transactions - 1);
+
+                if ($this->afterCommitCallbacksShouldBeExecuted()) {
+                    $this->transactionsManager?->commit($this->getName());
+                }
             } catch (Throwable $e) {
                 $this->handleCommitTransactionException(
                     $e, $currentAttempt, $attempts
@@ -60,12 +59,6 @@ trait ManagesTransactions
 
                 continue;
             }
-
-            $this->transactionsManager?->commit(
-                $this->getName(),
-                $levelBeingCommitted,
-                $this->transactions
-            );
 
             $this->fireConnectionEvent('committed');
 
@@ -79,12 +72,11 @@ trait ManagesTransactions
      * @param  \Throwable  $e
      * @param  int  $currentAttempt
      * @param  int  $maxAttempts
-     * @param  Closure|null  $onFailure
      * @return void
      *
      * @throws \Throwable
      */
-    protected function handleTransactionException(Throwable $e, $currentAttempt, $maxAttempts, ?Closure $onFailure)
+    protected function handleTransactionException(Throwable $e, $currentAttempt, $maxAttempts)
     {
         // On a deadlock, MySQL rolls back the entire transaction so we can't just
         // retry the query. We have to throw this exception all the way out and
@@ -110,10 +102,6 @@ trait ManagesTransactions
             return;
         }
 
-        if ($onFailure !== null) {
-            $onFailure($e);
-        }
-
         throw $e;
     }
 
@@ -126,10 +114,6 @@ trait ManagesTransactions
      */
     public function beginTransaction()
     {
-        foreach ($this->beforeStartingTransaction as $callback) {
-            $callback($this);
-        }
-
         $this->createTransaction();
 
         $this->transactions++;
@@ -210,16 +194,25 @@ trait ManagesTransactions
             $this->getPdo()->commit();
         }
 
-        [$levelBeingCommitted, $this->transactions] = [
-            $this->transactions,
-            max(0, $this->transactions - 1),
-        ];
+        $this->transactions = max(0, $this->transactions - 1);
 
-        $this->transactionsManager?->commit(
-            $this->getName(), $levelBeingCommitted, $this->transactions
-        );
+        if ($this->afterCommitCallbacksShouldBeExecuted()) {
+            $this->transactionsManager?->commit($this->getName());
+        }
 
         $this->fireConnectionEvent('committed');
+    }
+
+    /**
+     * Determine if after commit callbacks should be executed.
+     *
+     * @return bool
+     */
+    protected function afterCommitCallbacksShouldBeExecuted()
+    {
+        return $this->transactions == 0 ||
+            ($this->transactionsManager &&
+             $this->transactionsManager->callbackApplicableTransactions()->count() === 1);
     }
 
     /**
@@ -261,8 +254,8 @@ trait ManagesTransactions
         // that this given transaction level is valid before attempting to rollback to
         // that level. If it's not we will just return out and not attempt anything.
         $toLevel = is_null($toLevel)
-            ? $this->transactions - 1
-            : $toLevel;
+                    ? $this->transactions - 1
+                    : $toLevel;
 
         if ($toLevel < 0 || $toLevel >= $this->transactions) {
             return;
