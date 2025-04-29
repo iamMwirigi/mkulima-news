@@ -124,3 +124,5 @@ return [
     ],
 
 ];
+
+$app->configure('some-configuration');
