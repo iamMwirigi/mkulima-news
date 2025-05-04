@@ -14,7 +14,7 @@
         content: 'Important rainfall predictions for the next 15 days',
         bg: 'bg-green-800'
     }
-]}" class="relative overflow-hidden rounded-lg shadow-xl my-8 h-96">
+]}" class="relative rounded-lg shadow-xl my-8 h-96 z-0">
     
     <!-- Slides -->
     <template x-for="(slide, index) in slides" :key="index">
@@ -50,3 +50,16 @@
         </template>
     </div>
 </div>
+
+<style>
+.dropdown {
+
+    position: absolute; /* Ensure it can break out of its parent */
+    z-index: 9999; /* Higher than the slider */
+}
+
+.dropdown-container {
+    position: relative; /* Ensure dropdown is positioned relative to this container */
+    z-index: 9999;
+}
+</style>

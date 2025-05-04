@@ -11,11 +11,30 @@
 
             <!-- Desktop Menu -->
             <div class="hidden md:flex items-center space-x-8">
-                <a href="/" class="text-green-100 hover:text-white px-3 py-2">Home</a>
-                <a href="/about" class="text-green-100 hover:text-white px-3 py-2">About</a>
+                <div class="relative z-20" x-data="{ open: false }">
+                    <button @click="open = !open" class="text-green-100 hover:text-white px-3 py-2 flex items-center">
+                        News
+                        <svg class="w-4 h-4 ml-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/>
+                        </svg>
+                    </button>
+                    
+                    <div x-show="open" @click.away="open = false" 
+                        class="absolute right-0 mt-2 w-48 bg-white rounded-md shadow-lg py-1 dropdown">
+                        <a href="#" class="block px-4 py-2 text-green-800 hover:bg-green-50">Crop News</a>
+                        <a href="#" class="block px-4 py-2 text-green-800 hover:bg-green-50">Livestock News</a>
+                        <a href="#" class="block px-4 py-2 text-green-800 hover:bg-green-50">Machinery News</a>
+                    </div>
+                </div>
+            </div>
+
+                <a href="/" class="text-green-100 hover:text-white px-3 py-2">Crops</a>
+                <a href="/about" class="text-green-100 hover:text-white px-3 py-2">Livestock</a>
+                <a href="/about" class="text-green-100 hover:text-white px-3 py-2">Machinery</a>
+
                 
                 <!-- Dropdown -->
-                <div class="relative" x-data="{ open: false }">
+                <div class="relative z-20" x-data="{ open: false }">
                     <button @click="open = !open" class="text-green-100 hover:text-white px-3 py-2 flex items-center">
                         Resources
                         <svg class="w-4 h-4 ml-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -57,3 +76,10 @@
         </div>
     </div>
 </nav>
+
+<style>
+.dropdown {
+    position: absolute;
+    z-index: 50; /* Higher than the slider */
+}
+</style>
