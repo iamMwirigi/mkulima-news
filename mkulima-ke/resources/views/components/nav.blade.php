@@ -29,8 +29,8 @@
             </div>
 
                 <a href="/" class="text-green-100 hover:text-white px-3 py-2">Crops</a>
-                <a href="/about" class="text-green-100 hover:text-white px-3 py-2">Livestock</a>
-                <a href="/about" class="text-green-100 hover:text-white px-3 py-2">Machinery</a>
+                <a href="/livestock" class="text-green-100 hover:text-white px-3 py-2">Livestock</a>
+                <a href="/machinery" class="text-green-100 hover:text-white px-3 py-2">Machinery</a>
 
                 
                 <!-- Dropdown -->
@@ -49,7 +49,10 @@
                         <a href="#" class="block px-4 py-2 text-green-800 hover:bg-green-50">Govt Schemes</a>
                     </div>
                 </div>
+                <a href="/about" class="text-green-100 hover:text-white px-3 py-2">About</a>
+
             </div>
+
 
             <!-- Mobile Button -->
             <button @click="isOpen = !isOpen" class="md:hidden text-green-100 hover:text-white">
