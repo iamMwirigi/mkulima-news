@@ -21,16 +21,16 @@
                     
                     <div x-show="open" @click.away="open = false" 
                         class="absolute right-0 mt-2 w-48 bg-white rounded-md shadow-lg py-1 dropdown">
-                        <a href="#" class="block px-4 py-2 text-green-800 hover:bg-green-50">Crop News</a>
-                        <a href="#" class="block px-4 py-2 text-green-800 hover:bg-green-50">Livestock News</a>
-                        <a href="#" class="block px-4 py-2 text-green-800 hover:bg-green-50">Machinery News</a>
+                        <a href="{{ route('blogs.crop') }}" class="block px-4 py-2 text-green-800 hover:bg-green-50">Crop News</a>
+                        <a href="{{ route('blogs.livestock') }}" class="block px-4 py-2 text-green-800 hover:bg-green-50">Livestock News</a>
+                        <a href="{{ route('blogs.machinery') }}" class="block px-4 py-2 text-green-800 hover:bg-green-50">Machinery News</a>
                     </div>
                 </div>
             </div>
 
-                <a href="/" class="text-green-100 hover:text-white px-3 py-2">Crops</a>
-                <a href="/livestock" class="text-green-100 hover:text-white px-3 py-2">Livestock</a>
-                <a href="/machinery" class="text-green-100 hover:text-white px-3 py-2">Machinery</a>
+                <a href="{{ route('blogs.index') }}" class="text-green-100 hover:text-white px-3 py-2">Crops</a>
+                <a href="{{ route('blogs.livestock') }}" class="text-green-100 hover:text-white px-3 py-2">Livestock</a>
+                <a href="{{ route('blogs.machinery') }}" class="text-green-100 hover:text-white px-3 py-2">Machinery</a>
 
                 
                 <!-- Dropdown -->
@@ -44,9 +44,9 @@
                     
                     <div x-show="open" @click.away="open = false" 
                         class="absolute right-0 mt-2 w-48 bg-white rounded-md shadow-lg py-1">
-                        <a href="#" class="block px-4 py-2 text-green-800 hover:bg-green-50">Market Prices</a>
-                        <a href="#" class="block px-4 py-2 text-green-800 hover:bg-green-50">Crop Calendar</a>
-                        <a href="#" class="block px-4 py-2 text-green-800 hover:bg-green-50">Govt Schemes</a>
+                        <a href="{{ route('blogs.market') }}" class="block px-4 py-2 text-green-800 hover:bg-green-50">Market Prices</a>
+                        <a href="{{ route('blogs.calendar') }}" class="block px-4 py-2 text-green-800 hover:bg-green-50">Crop Calendar</a>
+                        <a href="{{ route('blogs.schemes') }}" class="block px-4 py-2 text-green-800 hover:bg-green-50">Govt Schemes</a>
                     </div>
                 </div>
                 <a href="/about" class="text-green-100 hover:text-white px-3 py-2">About</a>
@@ -70,9 +70,9 @@
                 <div class="px-3 py-2">
                     <p class="text-green-200 font-medium">Resources</p>
                     <div class="mt-2 space-y-2">
-                        <a href="#" class="block text-green-100 hover:text-white pl-4 py-1">Market Prices</a>
-                        <a href="#" class="block text-green-100 hover:text-white pl-4 py-1">Crop Calendar</a>
-                        <a href="#" class="block text-green-100 hover:text-white pl-4 py-1">Govt Schemes</a>
+                        <a href="{{ route('blogs.market') }}" class="block text-green-100 hover:text-white pl-4 py-1">Market Prices</a>
+                        <a href="{{ route('blogs.calendar') }}" class="block text-green-100 hover:text-white pl-4 py-1">Crop Calendar</a>
+                        <a href="{{ route('blogs.schemes') }}" class="block text-green-100 hover:text-white pl-4 py-1">Govt Schemes</a>
                     </div>
                 </div>
             </div>
