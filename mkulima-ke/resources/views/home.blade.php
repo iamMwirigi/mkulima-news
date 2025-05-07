@@ -1,6 +1,8 @@
 <x-layout title="Home">
-    <x-slider />
+    <!-- Slider -->
+    <x-slider :sliderBlogs="$sliderBlogs" />
 
+    <!-- Latest Updates Section -->
     <section class="my-12">
         <h2 class="text-3xl font-bold text-green-800 mb-8 text-center">Latest Updates</h2>
         

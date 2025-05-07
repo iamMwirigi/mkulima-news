@@ -9,11 +9,15 @@ class HomeController extends Controller
 {
     public function index()
     {
-        // Get featured blogs (adjust as needed)
-        $featuredBlogs = Blog::latest()->take(3)->get();
-        
+        // Fetch the latest 3 blogs for the slider
+        $sliderBlogs = Blog::latest()->take(3)->get();
+
+        // Fetch all blogs for the rest of the page
+        $blogs = Blog::all();
+
         return view('home', [
-            'blogs' => $featuredBlogs
+            'sliderBlogs' => $sliderBlogs,
+            'blogs' => $blogs,
         ]);
     }
 }

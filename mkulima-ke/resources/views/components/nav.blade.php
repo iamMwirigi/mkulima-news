@@ -5,7 +5,7 @@
         <div class="flex justify-between items-center h-16">
             <!-- Logo -->
             <a href="/" class="flex items-center">
-                <span class="text-white text-2xl font-bold">Farmers</span>
+                <span class="text-white text-2xl font-bold">Mkulima</span>
                 <span class="text-green-200 text-2xl ml-1">Hub</span>
             </a>
 
