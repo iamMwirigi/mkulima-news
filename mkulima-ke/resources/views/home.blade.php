@@ -10,7 +10,7 @@
                 <div class="p-6">
                     <span class="text-green-600 text-sm">{{ $blog->category }}</span>
                     <h3 class="text-xl font-bold text-green-800 my-2">{{ $blog->title }}</h3>
-                    <p class="text-green-700 mb-4">{{ Str::limit($blog->excerpt, 100) }}</p>
+                    <p class="text-green-700 mb-4">{{ Str::limit($blog->content, 150) }}</p>
                     <a href="{{ route('blogs.show', $blog) }}" class="text-green-600 font-semibold hover:text-green-800">
                         Read More →
                     </a>
