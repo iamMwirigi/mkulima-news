@@ -7,6 +7,9 @@
         <div class="grid md:grid-cols-3 gap-8">
             @foreach($blogs as $blog)
             <div class="bg-green-50 rounded-lg overflow-hidden shadow-md hover:shadow-lg transition">
+                <a href="{{ route('blogs.show', $blog) }}">
+                    <img src="{{ asset($blog->image) }}" alt="{{ $blog->title }}" class="w-full h-40 object-cover">
+                </a>
                 <div class="p-6">
                     <span class="text-green-600 text-sm">{{ $blog->category }}</span>
                     <h3 class="text-xl font-bold text-green-800 my-2">{{ $blog->title }}</h3>
