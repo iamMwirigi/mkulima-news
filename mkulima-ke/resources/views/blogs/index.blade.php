@@ -2,7 +2,10 @@
 
 @section('content')
 <div class="container mx-auto px-4 py-8">
-    <h1 class="text-3xl font-bold text-green-800 mb-6">All Blogs</h1>
+    <div class="bg-gradient-to-r from-green-600 to-green-400 text-white rounded-lg shadow-md p-6 mb-8">
+        <h1 class="text-4xl font-extrabold text-center">Explore the Latest Agricultural Insights</h1>
+        <p class="text-lg text-center mt-2">Stay informed with the most recent updates, tips, and trends in farming.</p>
+    </div>
     @if ($blogs->isEmpty())
         <p class="text-gray-600">No blogs available at the moment.</p>
     @else
