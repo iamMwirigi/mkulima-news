@@ -14,8 +14,8 @@ class BlogController extends Controller
 
     public function cropNews()
     {
-        $blogs = Blog::where('category', 'Crop News')->get(); // Filter by category
-        return view('blogs.crop', compact('blogs'));
+        $blogs = Blog::where('category', 'Crop News')->get();
+        return view('blogs.crop', compact('blogs')); // Pass the data to the view
     }
 
     public function livestockNews()

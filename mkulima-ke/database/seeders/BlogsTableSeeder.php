@@ -20,7 +20,6 @@ class BlogsTableSeeder extends Seeder
                 'published_at' => now(),
                 'created_at' => now(),
                 'updated_at' => now(),
-                'category' => 'Market',
             ],
             [
                 'title' => 'New Farming Techniques',
@@ -31,7 +30,6 @@ class BlogsTableSeeder extends Seeder
                 'published_at' => now(),
                 'created_at' => now(),
                 'updated_at' => now(),
-                'category' => 'Farming',
             ],
             [
                 'title' => 'Weather Advisory',
@@ -42,7 +40,6 @@ class BlogsTableSeeder extends Seeder
                 'published_at' => now(),
                 'created_at' => now(),
                 'updated_at' => now(),
-                'category' => 'Weather',
             ],
         ]);
     }
