@@ -28,7 +28,8 @@
                 </div>
             </div>
 
-                <a href="{{ route('blogs.index') }}" class="text-green-100 hover:text-white px-3 py-2">Crops</a>
+                <a href="{{ route('blogs.index') }}" class="text-green-100 hover:text-white px-3 py-2">Blogs</a>
+                <a href="{{ route('blogs.crop') }}" class="text-green-100 hover:text-white px-3 py-2">Crops</a>
                 <a href="{{ route('blogs.livestock') }}" class="text-green-100 hover:text-white px-3 py-2">Livestock</a>
                 <a href="{{ route('blogs.machinery') }}" class="text-green-100 hover:text-white px-3 py-2">Machinery</a>
 
