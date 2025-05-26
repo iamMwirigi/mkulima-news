@@ -7,12 +7,8 @@ services:
       - "8080:80"
     depends_on:
       - mysql
-    environment:
-      DB_HOST: mysql
-      DB_PORT: 3306
-      DB_DATABASE: mkulima_hub
-      DB_USERNAME: root
-      DB_PASSWORD: 31278527
+    env_file:
+      - .env
     volumes:
       - .:/var/www/html
 
@@ -20,8 +16,8 @@ services:
     image: mysql:8
     restart: always
     environment:
-      MYSQL_ROOT_PASSWORD: 31278527
-      MYSQL_DATABASE: mkulima_hub
+      MYSQL_ROOT_PASSWORD: ${DB_PASSWORD}
+      MYSQL_DATABASE: ${DB_DATABASE}
     ports:
       - "3306:3306"
     volumes:
