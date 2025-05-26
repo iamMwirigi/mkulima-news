@@ -1,30 +1,33 @@
 FROM php:8.2-apache
 
-# Enable mod_rewrite
+# Enable Apache mod_rewrite
 RUN a2enmod rewrite
 
-# Set working directory
+# Set working directory in the container
 WORKDIR /var/www/html
 
-# Install dependencies
+# Install PHP dependencies
 RUN apt-get update && apt-get install -y \
-    libzip-dev zip unzip \
+    libzip-dev zip unzip curl \
     && docker-php-ext-install zip pdo pdo_mysql
 
-# Copy Laravel files
-COPY . /var/www/html
+# Install Composer
+COPY --from=composer:latest /usr/bin/composer /usr/bin/composer
+
+# Copy everything from the Laravel project into the container
+COPY . .
 
 # Set permissions
 RUN chown -R www-data:www-data /var/www/html \
     && chmod -R 755 /var/www/html
 
-# Install Composer
-COPY --from=composer:latest /usr/bin/composer /usr/bin/composer
+# Install Laravel PHP dependencies
 RUN composer install --no-dev --optimize-autoloader
 
-# Laravel ENV setup
-COPY .env.example .env
+# Laravel commands
 RUN php artisan key:generate
 RUN php artisan config:cache
+RUN php artisan route:cache
+RUN php artisan view:cache
 
 EXPOSE 80
